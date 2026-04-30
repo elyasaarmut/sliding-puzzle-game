@@ -96,11 +96,10 @@ body {
 }
 
 /* Hap (Pill) Şeklindeki Sayaç */
-/* Hap (Pill) Şeklindeki Sayaç - Metalik Görünüm */
 .timer-container {
     /* Metalik gümüş hissi için parlaktan mat renge doğru bir geçiş (gradient) */
     background: linear-gradient(145deg, #eef7fa, #a5acb1);
-    color: #000000; /* Yazı rengi artık siyah */
+    color: #000000; 
     padding: 3px 20px;
     border-radius: 30px; 
     font-size: 1.5rem;
@@ -115,11 +114,11 @@ body {
 /* Yuvarlak Duraklatma Butonu - Metalik Görünüm */
 .pause-btn {
     background: linear-gradient(145deg, #eef7fa, #a5acb1);
-    color: #000000; /* İkon rengi artık siyah */
+    color: #000000; 
     border: 1px solid #8e959b;
     width: 35px;
     height: 35px;
-    border-radius: 50%; /* Tam yuvarlak */
+    border-radius: 50%;
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
@@ -148,17 +147,16 @@ body {
     background-color: rgba(17, 17, 19, 0.85); 
     backdrop-filter: blur(4px); 
     display: flex;
-    flex-direction: column; /* YENİ: Elemanları alt alta dizer */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
-    gap: 20px; /* YENİ: Yazı ile panel arasındaki boşluk */
+    gap: 20px; 
     z-index: 100; 
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease-in-out;
 }
 
-/* YENİ: Dışarıda uçuşan süre yazısının tasarımı */
 .floating-time {
     color: #a5acb1;
     font-size: 1.5rem; /* Biraz daha büyük ve okunaklı */
@@ -188,7 +186,7 @@ body {
 
 /* Duraklatma Paneli - Metalik ve Animasyonlu */
 .pause-modal {
-    /* Senin sayacınla aynı metalik renk */
+   
     background: linear-gradient(145deg, #eef7fa, #a5acb1);
     color: #000000;
     border: 1px solid #8e959b;
@@ -233,7 +231,7 @@ body {
 
 /* Müzik Çalar Tasarımı */
 .music-player {
-    background-color: #1a1e24; /* Koyu arka plan */
+    background-color: #1a1e24; 
     color: #eef7fa;
     border-radius: 16px;
     padding: 15px;
@@ -284,7 +282,7 @@ body {
 #volume-slider {
     width: 120px;
     cursor: pointer;
-    accent-color: #a5acb1; /* Chrome ve Edge'de çubuğun rengini metalik yapar */
+    accent-color: #a5acb1; 
 }
 
 /* Skor Tablosu ve İsim Girme Alanı CSS Ayarları */
@@ -312,7 +310,7 @@ body {
 }
 
 .scoreboard {
-    background-color: #1a1e24; /* Müzik çalar ile aynı iç gölgeli koyu kutu */
+    background-color: #1a1e24; 
     border-radius: 12px;
     padding: 15px;
     margin-top: 20px;
@@ -329,16 +327,16 @@ body {
 }
 
 #score-list {
-    list-style: none; /* Yanındaki madde işaretlerini kaldırır */
+    list-style: none; 
     padding: 0;
     margin: 0;
 }
 
 #score-list li {
     display: flex;
-    justify-content: space-between; /* İsim solda, süre sağda kalsın diye */
+    justify-content: space-between; 
     padding: 6px 0;
-    border-bottom: 1px solid #333; /* Araya ince bir çizgi çeker */
+    border-bottom: 1px solid #333; 
 }
 
 #score-list li:last-child {
