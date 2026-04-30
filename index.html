@@ -31,7 +31,20 @@
             <option value="6">6x6</option>
         </select>
     </div>
-
+    <!-- Nasıl Oynanır (Bilgilendirme) Paneli -->
+    <div class="overlay active" id="info-overlay">
+        <div class="pause-modal" id="info-modal">
+            <h2>Nasıl Oynanır? 🧩</h2>
+            <p style="color: #05813d; font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px;">
+                Amaç, karışık olarak verilen taşları sırasıyla (1'den başlayarak) dizmektir. Sadece boşluğun yanındaki taşlara tıklayarak onları hareket ettirebilirsin.
+            </p>
+            
+            <!-- Bitmiş Halin Görseli -->
+            <img src="solved.png" alt="Çözülmüş Bulmaca" class="solved-img">
+            
+            <button id="start-game-btn" class="resume-btn" style="margin-top: 20px;">▶ Oyuna Başla</button>
+        </div>
+    </div>
     <!-- Oyunun oynanacağı ana tahta -->
     <div class="game-container">
         <div id="board" class="board"></div>
