@@ -344,3 +344,44 @@ body {
 #score-list li:last-child {
     border-bottom: none; /* En sondakinin alt çizgisini siler */
 }
+
+/* --- MOBİL UYUMLULUK (RESPONSIVE) AYARLARI --- */
+/* Eğer ekran genişliği 500px ve altındaysa (telefonlar için) bu kurallar geçerli olur */
+@media (max-width: 500px) {
+    .board {
+        /* Sabit 450px yerine ekran genişliğinin %90'ını kapla (vw = viewport width) */
+        width: 90vw; 
+        height: 90vw;
+    }
+
+    .tile {
+        /* Yazı boyutunu da ekranın genişliğine göre dinamik olarak küçült */
+        font-size: calc(25vw / var(--grid-size)); 
+    }
+
+    /* Üst bardaki butonları ve sayacı telefona sığdırmak için biraz küçültüyoruz */
+    .top-bar {
+        gap: 10px;
+    }
+
+    .timer-container {
+        padding: 8px 20px;
+        font-size: 1.2rem;
+    }
+
+    .pause-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+
+    /* Duraklatma ve Oyun Sonu panelleri ekrandan taşmasın diye */
+    .pause-modal {
+        width: 85%;
+        padding: 25px 20px;
+    }
+}
+
+
+
+
