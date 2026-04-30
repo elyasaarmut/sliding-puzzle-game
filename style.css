@@ -382,6 +382,12 @@ body {
     }
 }
 
-
-
-
+/* Nasıl Oynanır Paneli Görseli */
+.solved-img {
+    width: 180px; /* Çok yer kaplamaması için boyutunu sınırlandırıyoruz */
+    border-radius: 8px;
+    border: 2px solid #8e959b;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    margin: 10px auto;
+    display: block;
+}
