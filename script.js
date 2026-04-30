@@ -5,7 +5,7 @@ let secondsElapsed = 0;
 let isGameStarted = false;
 let isPaused = false;
 
-// Oyun boyutunu tutan değişkenimiz (Şimdilik 3, ileride 4, 5, 6 yapabiliriz)
+// Oyun boyutunu tutan değişkenimiz
 let gridSize = 3; 
 let boardState = [];
 
@@ -63,7 +63,7 @@ function createBoard() {
             tile.className = "tile";
             tile.innerText = tileValue;
             
-            // YENİ EKLENEN KISIM: Taşa tıklandığında moveTile fonksiyonunu çalıştır
+            // Taşa tıklandığında moveTile fonksiyonunu çalıştır
             // 'i' değeri o anki taşın dizideki konumunu (index) temsil eder
             tile.addEventListener("click", () => moveTile(i));
         }
@@ -119,7 +119,7 @@ function startTimer() {
     }, 1000);
 }
 
-// Oyunu Kazanma Kontrolü (GÜNCELLENDİ)
+// Oyunu Kazanma Kontrolü 
 function checkWin() {
     let isWin = true;
     let totalTiles = gridSize * gridSize;
@@ -169,7 +169,7 @@ const resumeBtn = document.getElementById("resume-btn");
 const overlay = document.getElementById("overlay");
 const topBar = document.querySelector(".top-bar");
 
-// Duraklatma Butonuna Tıklanınca (GÜNCELLENDİ)
+// Duraklatma Butonuna Tıklanınca 
 pauseBtn.addEventListener("click", () => {
     isPaused = true; 
     
@@ -199,10 +199,10 @@ let ytPlayer;
 let isMusicPlaying = false;
 let currentTrackIndex = 0;
 
-// YouTube Video ID'leri (Kendi sevdiklerinle değiştirebilirsin)
+// YouTube Video ID'leri 
 const playlist = [
     { name: "LVBEL C5, AKDO, ALIZADE - kAHpE", id: "MKjOiRpvuRA"},
-    { name: "Lofi Beats to Study", id: "jfKfPfyJRdk" }, // Ünlü Lofi Girl yayını
+    { name: "Lofi Beats to Study", id: "jfKfPfyJRdk" }, 
     { name: "Chillhop Radio", id: "5yx6BWlEVcY" },
     { name: "Synthwave Vibe", id: "4xDzrDKg11o" }
 ];
