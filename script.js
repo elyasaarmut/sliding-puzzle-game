@@ -437,6 +437,23 @@ document.getElementById("restart-top-btn").addEventListener("click", () => {
     createBoard();
 });
 
+// --- NASIL OYNANIR PANELİ KODLARI ---
+const infoOverlay = document.getElementById("info-overlay");
+const startGameBtn = document.getElementById("start-game-btn");
+
+// "Oyuna Başla" butonuna tıklanınca paneli kapat
+startGameBtn.addEventListener("click", () => {
+    infoOverlay.classList.remove("active");
+});
+
+// Dışarıdaki karanlık alana tıklanınca paneli kapat
+infoOverlay.addEventListener("click", (event) => {
+    // Sadece tam olarak karanlık alana tıklandıysa kapat
+    if (event.target === infoOverlay) {
+        infoOverlay.classList.remove("active");
+    }
+});
+
 // Oyunu başlat
 initializeBoardState();
 createBoard();
