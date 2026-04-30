@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaydırmalı Bulmaca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <!-- Sayaç, Yenileme ve Duraklatma Butonları -->
+    <div class="top-bar">
+        
+        <!-- YENİ: Yenileme Butonu (Görseldeki gibi SVG İkonlu) -->
+        <button class="pause-btn" id="restart-top-btn" title="Yeniden Başlat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+        </button>
+        
+        <div class="timer-container" id="timer">00:00</div>
+        
+        <button class="pause-btn" id="pause-btn" title="Duraklat">⏸</button>
+    </div>
+   <!-- Üst Kontrol Menüsü -->
+    <div class="controls">
+        <select id="size-selector">
+            <option value="3">3x3</option>
+            <option value="4">4x4</option>
+            <option value="5">5x5</option>
+            <option value="6">6x6</option>
+        </select>
+    </div>
+
+    <!-- Oyunun oynanacağı ana tahta -->
+    <div class="game-container">
+        <div id="board" class="board"></div>
+    </div>
+    <!-- Arka planı karartan katman ve Duraklatma Paneli -->
+    <div class="overlay" id="overlay">
+        
+        <!-- YENİ YERİ: Panel dışındaki süre gösterimi -->
+        <div class="floating-time">
+            Geçen Süre: <span id="paused-time-display">00:00</span>
+        </div>
+
+        <div class="pause-modal" id="pause-modal">
+            <h2>Oyun Duraklatıldı</h2>
+            
+            <!-- YENİ: Görünmez YouTube Oynatıcı -->
+            <div id="yt-player" style="display: none;"></div>
+            
+            <!-- Müzik Çalar Kısmı -->
+            <div class="music-player">
+                <h3 id="track-name">Bağlanıyor...</h3>
+                <div class="music-controls">
+                    <button id="prev-btn" class="music-btn">⏮</button>
+                    <button id="play-pause-music-btn" class="music-btn">▶</button>
+                    <button id="next-btn" class="music-btn">⏭</button>
+                </div>
+                <div class="volume-control">
+                    <span id="mute-btn" style="cursor:pointer" title="Sesi Kapat/Aç">🔊</span>
+                    <input type="range" id="volume-slider" min="0" max="100" step="5" value="50">
+                </div>
+            </div>
+
+            <!-- YENİ: Skor Tablosunu Göster Butonu -->
+            <button id="toggle-scores-btn" class="resume-btn" style="background: transparent; border: 1px solid #a5acb1; color: #b49e12; margin-top: 5px; font-size: 0.9rem; padding: 8px 16px;">🏆 Skorları Gör</button>
+            
+            <!-- YENİ: Duraklatma Paneli İçindeki Skor Tablosu (Başlangıçta Gizli) -->
+            <div id="pause-scoreboard-container" style="display: none; margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+                <h3 style="color: #101010; font-size: 1rem; margin-bottom: 10px;">Skor Tablosu (<span id="pause-board-size">3x3</span>)</h3>
+                <ul id="pause-score-list" style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem; color: #eef7fa;">
+                    <!-- Skorlar buraya gelecek -->
+                </ul>
+            </div>
+            <button id="resume-btn" class="resume-btn">▶ Oyuna Dön</button>
+        </div>
+    </div>
+
+    <!-- Oyun Sonu ve Skor Paneli -->
+    <div class="overlay" id="win-overlay">
+        <!-- Tasarım olarak duraklatma paneliyle aynı metalik stili kullanıyoruz -->
+        <div class="pause-modal" id="win-modal"> 
+            <h2>Tebrikler! 🎉</h2>
+            <p>Oyunu <span id="final-time" style="font-weight:bold; color:#111113;">00:00</span> sürede bitirdin!</p>
+            
+            <!-- İsim girme ve kaydetme alanı -->
+            <div class="score-input-area">
+                <input type="text" id="player-name" placeholder="Adınızı girin..." maxlength="15" autocomplete="off">
+                <button id="save-score-btn" class="resume-btn" style="margin-top: 10px;">Kaydet</button>
+            </div>
+
+            <!-- Liderlik Tablosu -->
+            <div class="scoreboard">
+                <h3>🏆 Skor Tablosu (<span id="current-board-size">3x3</span>)</h3>
+                <ul id="score-list">
+                    <!-- Skorlar buraya JS ile otomatik eklenecek -->
+                </ul>
+            </div>
+
+            <button id="restart-btn" class="resume-btn" style="background:#111113; margin-top:20px;">🔄 Yeniden Başlat</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

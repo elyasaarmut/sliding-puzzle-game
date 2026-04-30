@@ -1,0 +1,346 @@
+/* Sayfanın genel, görseldeki gibi koyu temalı ayarı */
+/* Body'ye flex-direction: column ekliyoruz (diğer ayarların aynı kalabilir) */
+body {
+    background-color: #111113; 
+    display: flex;
+    flex-direction: column; /* Elemanları alt alta dizer */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Kontrol alanı ve açılır menü tasarımı */
+.controls {
+    margin-bottom: 20px; /* Tahta ile menü arasına boşluk */
+    display: flex;
+    gap: 10px;
+}
+
+#size-selector {
+    background-color: #1e1e1f;
+    color: #eef7fa;
+    border: 1px solid #333;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+#size-selector:hover {
+    background-color: #2a2a2c;
+}
+
+/* 3x3'lük oyun tahtası - Dinamik! */
+/* 3x3, 4x4, 6x6... boyutu ne olursa olsun tahta hep aynı boyutta kalacak */
+.board {
+    display: grid;
+    width: 450px;  /* Tahtanın sabit genişliği */
+    height: 450px; /* Tahtanın sabit yüksekliği */
+    
+    /* 120px yerine 1fr kullanıyoruz. Böylece kutular tahtaya eşit olarak yayılır */
+    grid-template-columns: repeat(var(--grid-size, 3), 1fr); 
+    grid-template-rows: repeat(var(--grid-size, 3), 1fr);
+    
+    gap: 4px;
+    background-color: #1e1e1f; 
+    padding: 4px;
+    border-radius: 4px;
+}
+
+/* Üzerinde sayı yazan taşların görünümü */
+.tile {
+    background-color: #eef7fa; 
+    color: #1a1e24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Font boyutunu da ızgara sayısına göre dinamik küçültüyoruz ki 6x6'da sayılar taşmasın */
+    font-size: calc(120px / var(--grid-size)); 
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none; 
+    border-radius: 2px;
+    transition: background-color 0.2s; 
+}
+
+.tile:hover {
+    background-color: #ffffff;
+}
+
+/* Boş olan alanın görünümü */
+.empty {
+    background-color: #1a1e24; /* Arka planla aynı renk, boşmuş gibi görünür */
+    cursor: default;
+}
+
+/* Üst Bar Düzeni */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    transition: all 0.4s ease-in-out; /* Animasyon için eklendi */
+}
+
+/* Panel açıldığında üst barı küçülterek gizleyecek sınıf */
+.top-bar.hidden {
+    opacity: 0;
+    transform: scale(0.2) translateY(50px);
+    pointer-events: none;
+}
+
+/* Hap (Pill) Şeklindeki Sayaç */
+/* Hap (Pill) Şeklindeki Sayaç - Metalik Görünüm */
+.timer-container {
+    /* Metalik gümüş hissi için parlaktan mat renge doğru bir geçiş (gradient) */
+    background: linear-gradient(145deg, #eef7fa, #a5acb1);
+    color: #000000; /* Yazı rengi artık siyah */
+    padding: 3px 20px;
+    border-radius: 30px; 
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    user-select: none;
+    /* Metalik dokuyu güçlendirmek için ince bir çerçeve ve iç gölge efekti */
+    border: 1px solid #8e959b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Yuvarlak Duraklatma Butonu - Metalik Görünüm */
+.pause-btn {
+    background: linear-gradient(145deg, #eef7fa, #a5acb1);
+    color: #000000; /* İkon rengi artık siyah */
+    border: 1px solid #8e959b;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Tam yuvarlak */
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Fare ile üzerine gelindiğinde hafifçe parlasın */
+.pause-btn:hover {
+    background: linear-gradient(145deg, #ffffff, #c2c9ce);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* Tıklandığında içeri göçme hissi */
+.pause-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6), inset 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Arka Plan Karartma (Overlay) */
+.overlay {
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(17, 17, 19, 0.85); 
+    backdrop-filter: blur(4px); 
+    display: flex;
+    flex-direction: column; /* YENİ: Elemanları alt alta dizer */
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* YENİ: Yazı ile panel arasındaki boşluk */
+    z-index: 100; 
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* YENİ: Dışarıda uçuşan süre yazısının tasarımı */
+.floating-time {
+    color: #a5acb1;
+    font-size: 1.5rem; /* Biraz daha büyük ve okunaklı */
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.8); /* Arka planla karışmaması için gölge */
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+.overlay.active .floating-time {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#paused-time-display {
+    color: #eef7fa; /* Rakamlar daha parlak dursun */
+    font-weight: bold;
+}
+
+/* Overlay aktif olduğunda */
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Duraklatma Paneli - Metalik ve Animasyonlu */
+.pause-modal {
+    /* Senin sayacınla aynı metalik renk */
+    background: linear-gradient(145deg, #eef7fa, #a5acb1);
+    color: #000000;
+    border: 1px solid #8e959b;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.8);
+    border-radius: 24px;
+    padding: 40px;
+    width: 320px;
+    text-align: center;
+    
+    /* Animasyon Başlangıç Durumu: Üst barın olduğu yerden küçücük başlar */
+    transform-origin: top center;
+    transform: translateY(-150px) scale(0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Tatlı bir sekme (bounce) efekti verir */
+}
+
+/* Panel açıldığında büyüme durumu */
+.overlay.active .pause-modal {
+    transform: translateY(0) scale(1);
+}
+
+/* Oyuna Dön Butonu (Siyah Metalik) */
+.resume-btn {
+    background: #111113;
+    color: #eef7fa;
+    border: 1px solid #333;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.resume-btn:hover {
+    background: #2a2a2c;
+}
+
+.resume-btn:active {
+    transform: scale(0.95);
+}
+
+/* Müzik Çalar Tasarımı */
+.music-player {
+    background-color: #1a1e24; /* Koyu arka plan */
+    color: #eef7fa;
+    border-radius: 16px;
+    padding: 15px;
+    margin: 20px 0;
+    /* Metalik yüzeye oyulmuş bir ekran hissi vermek için iç gölge */
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.6), 0 1px 1px rgba(255,255,255,0.3);
+}
+
+#track-name {
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    color: #a5acb1;
+    letter-spacing: 1px;
+}
+
+.music-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.music-btn {
+    background: none;
+    border: none;
+    color: #eef7fa;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.1s, color 0.2s;
+}
+
+.music-btn:hover {
+    color: #a5acb1;
+}
+
+.music-btn:active {
+    transform: scale(0.85);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Ses kaydırma çubuğu (slider) özelleştirmesi */
+#volume-slider {
+    width: 120px;
+    cursor: pointer;
+    accent-color: #a5acb1; /* Chrome ve Edge'de çubuğun rengini metalik yapar */
+}
+
+/* Skor Tablosu ve İsim Girme Alanı CSS Ayarları */
+.score-input-area {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#player-name {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #8e959b;
+    background-color: #1a1e24;
+    color: #eef7fa;
+    font-size: 1rem;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+#player-name:focus {
+    border-color: #eef7fa; /* Tıklanınca kenarlığı parlar */
+}
+
+.scoreboard {
+    background-color: #1a1e24; /* Müzik çalar ile aynı iç gölgeli koyu kutu */
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.6);
+    color: #eef7fa;
+    text-align: left;
+}
+
+.scoreboard h3 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #a5acb1;
+}
+
+#score-list {
+    list-style: none; /* Yanındaki madde işaretlerini kaldırır */
+    padding: 0;
+    margin: 0;
+}
+
+#score-list li {
+    display: flex;
+    justify-content: space-between; /* İsim solda, süre sağda kalsın diye */
+    padding: 6px 0;
+    border-bottom: 1px solid #333; /* Araya ince bir çizgi çeker */
+}
+
+#score-list li:last-child {
+    border-bottom: none; /* En sondakinin alt çizgisini siler */
+}
