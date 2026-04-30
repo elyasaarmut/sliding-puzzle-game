@@ -1,5 +1,6 @@
 # sliding-puzzle-game
 Sliding puzzle games are a classic type of puzzle that have been around for many years. These games are typically played on a board with a grid of squares, each of which contains a different image or pattern. The objective of the game is to slide the tiles around the board until they are all in the correct position to form a complete picture.
+My site is live at: https://elyasaarmut.github.io/sliding-puzzle-game/
 # How to Play Tile Slide Puzzle: The Game Rules
 The game starts with the tiles randomly arranged, and the player must slide the tiles around the board until the numbers or images on them are arranged in numerical or alphabetical order.
 The player can only move tiles that are adjacent to the blank space.
